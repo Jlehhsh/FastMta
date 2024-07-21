@@ -1,0 +1,23 @@
+name: Create FiveM Server VPS
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-vps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Create VPS
+        env:
+          DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
+        run: |
+          # Script para criar a VPS utilizando a API do DigitalOcean
+          # Substitua com os comandos específicos do seu provedor de nuvem
+          curl -X POST -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+            -d '{"name":"fivem-server","region":"nyc3","size":"s-1vcpu-1gb","image":"ubuntu-20-04-x64"}' \
+            "https://api.digitalocean.com/v2/droplets"
